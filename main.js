@@ -1,4 +1,5 @@
 import './style.css';
+import getRandomWord from './src/randomWord.js';
 
 document.querySelector('#app').innerHTML = `
   <section id="shark-img"></section>
@@ -12,7 +13,8 @@ document.querySelector('#app').innerHTML = `
 
 const initSharkwords = () => {
   let numWrong = 0;
-  const word = 'word';
+  const word = getRandomWord();
+  console.log(word);
 
   // for debugging:
   console.log(`[INFO] Correct word is: ${word}`);
