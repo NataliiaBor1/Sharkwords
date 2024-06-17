@@ -8,10 +8,12 @@ function setupWord(element, initWord) {
     });
 }
 
-function isLetterInWord(letter) {}
+function isLetterInWord(letter) {
+return word.includes(letter);
+}
 
 function revealLetterInWord(letter) {}
 
-export default setupWord;
+export default setupWord(); isLetterInWord(); revealLetterInWord();
 // export default isLetterInWord;
 // export default revealLetterInWord;
