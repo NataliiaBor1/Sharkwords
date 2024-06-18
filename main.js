@@ -17,7 +17,6 @@ document.querySelector('#app').innerHTML = `
 const initSharkwords = () => {
   let numWrong = 0;
   const word = getRandomWord();
-  console.log(word);
 
   // for debugging:
   console.log(`[INFO] Correct word is: ${word}`);
@@ -26,12 +25,10 @@ const initSharkwords = () => {
 
   setupWord(document.querySelector('#word-container'), word);
 
-  console.log(isLetterInWord(word[0]), '(should be true)');
-  console.log(isLetterInWord('1'), '(should be false)');
-
-  revealLetterInWord(word[0]);
+  revealLetterInWord(word);
   
-  // sharkImgEl = document.querySelector('#shark-img')'
+  // sharkImgEl = document.querySelector('#shark-img');
+
   const handleGuess = (guessEvent, letter) => {
   console.log(`guessEvent is: ${guessEvent}`);
   console.log(`letter is: ${letter}`);
@@ -48,9 +45,24 @@ const initSharkwords = () => {
       setSharkImage(sharkImgEl, numWrong);
     }
   };
-  setupGuesses(document.querySelector('#letter-buttons'), handleGuess);
 
-  
+  let isWordComplete = true;
+  for (const el of document.querySelectorAll('.letter-box')) {
+    if (el.innerText === '') {
+      isWordComplete = false;
+      break; // break will exit the loop
+    }
+  }
+
+  setupGuesses(document.querySelector('#letter-buttons'), handleGuess);
   }
 
 initSharkwords();
+
+document.querySelectorAll('button').forEach((btn) => {
+  btn.setAttribute('disabled', true);
+});
+
+// const isWordComplete = Array.from(document.querySelectorAll('letter-box')).every(
+//   (el) => el.innerText !== '',
+// );  // another version of check if the word is completed
