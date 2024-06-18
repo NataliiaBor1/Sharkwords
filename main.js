@@ -25,13 +25,17 @@ const initSharkwords = () => {
 
   setupWord(document.querySelector('#word-container'), word);
 
+  // console.log(isLetterInWord(word[0]), '(should be true)');
+  // console.log(isLetterInWord('1'), '(should be false)');
+
   revealLetterInWord(word);
   
-  // sharkImgEl = document.querySelector('#shark-img');
+  let sharkImgEl = document.querySelector('#shark-img');
 
   const handleGuess = (guessEvent, letter) => {
-  console.log(`guessEvent is: ${guessEvent}`);
-  console.log(`letter is: ${letter}`);
+
+  // console.log(`guessEvent is: ${guessEvent}`);
+  // console.log(`letter is: ${letter}`);
 
   // Disable button after click
   const button = guessEvent.target;
@@ -43,25 +47,44 @@ const initSharkwords = () => {
     } else {
       numWrong += 1;
       setSharkImage(sharkImgEl, numWrong);
+      console.log(numWrong);
     }
-  };
 
-  let isWordComplete = true;
-  for (const el of document.querySelectorAll('.letter-box')) {
-    if (el.innerText === '') {
-      isWordComplete = false;
-      break; // break will exit the loop
-    }
-  }
+    let isWordComplete = true;
+      for (const el of document.querySelectorAll('.letter-box')) {
+        if (el.innerText === '') {
+          isWordComplete = false;
+          break; // break will exit the loop
+        }
+      }
+
+      const result = document.querySelector('#game-status');
+      const span = document.createElement('span');
+
+      if (isWordComplete) {
+        span.innerText = "You win!";
+        
+        document.querySelectorAll('button').forEach((btn) => {
+          btn.setAttribute('disabled', true);
+        });
+        result.appendChild(span);
+      } else if (numWrong === 5) {
+        span.innerText = "You lose!";
+        
+        document.querySelectorAll('button').forEach((btn) => {
+          btn.setAttribute('disabled', true);
+        });
+        result.appendChild(span);
+      }
+    // document.querySelectorAll('button').forEach((btn) => {
+    //   btn.setAttribute('disabled', true);
+    // });
+  };
 
   setupGuesses(document.querySelector('#letter-buttons'), handleGuess);
   }
 
-initSharkwords();
-
-document.querySelectorAll('button').forEach((btn) => {
-  btn.setAttribute('disabled', true);
-});
+initSharkwords(); // call initSharkwords() function
 
 // const isWordComplete = Array.from(document.querySelectorAll('letter-box')).every(
 //   (el) => el.innerText !== '',
