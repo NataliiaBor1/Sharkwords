@@ -68,7 +68,7 @@ const initSharkwords = () => {
           btn.setAttribute('disabled', true);
         });
         result.appendChild(span);
-      } else if (numWrong === 5) {
+      } else if (numWrong === 5 && isWordComplete === false) {
         span.innerText = "You lose!";
         
         document.querySelectorAll('button').forEach((btn) => {
